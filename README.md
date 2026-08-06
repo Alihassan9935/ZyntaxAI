@@ -78,7 +78,7 @@ Current release: **1.0.0**, from [zsync.eu/zyntaxai](https://zsync.eu/zyntaxai/)
 | **Windows** | `.msi` | Windows 10 and 11 |
 | **Linux** | `.AppImage` | Runs anywhere; the only Linux build that can update itself in place |
 | **Linux** | `.deb` / `.rpm` | For Debian, Ubuntu, Fedora and relatives |
-| **macOS** | `.dmg` | Apple silicon; build from source for Intel |
+| **macOS** | `.dmg` | One for Apple silicon, one for Intel |
 
 Then open **Providers**, pick a provider and add a key — or select Ollama if you already have it
 running and want to keep everything on your own machine.

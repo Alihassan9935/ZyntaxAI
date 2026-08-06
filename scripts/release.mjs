@@ -47,7 +47,10 @@ if (!skipBuild) {
     );
   }
 
-  execFileSync(OS === "windows" ? "pnpm.cmd" : "pnpm", ["exec", "tauri", "build"], {
+  const cli = path.join(ROOT, "node_modules", "@tauri-apps", "cli", "tauri.js");
+  if (!fs.existsSync(cli)) fail(`the Tauri CLI is missing at ${cli} — run pnpm install first`);
+
+  execFileSync(process.execPath, [cli, "build"], {
     cwd: ROOT,
     stdio: "inherit",
     env: {
