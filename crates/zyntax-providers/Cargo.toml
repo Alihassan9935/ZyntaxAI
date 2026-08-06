@@ -1,0 +1,32 @@
+[package]
+name = "zyntax-providers"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Pluggable AI provider backends (Gemini, OpenAI-compatible, Ollama) for ZyntaxAI."
+
+[dependencies]
+zyntax-core.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+ts-rs.workspace = true
+# rustls rather than native-tls: no OpenSSL system dependency on any platform,
+# which is what makes a single cross-platform build practical.
+reqwest = { version = "0.12", default-features = false, features = [
+  "json",
+  "rustls-tls",
+  "gzip",
+] }
+
+[dev-dependencies]
+wiremock = "0.6"
+# `test-util` provides the paused clock, so retry-backoff tests assert the
+# schedule instead of actually sleeping through it.
+tokio = { workspace = true, features = ["rt-multi-thread", "macros", "time", "test-util"] }

@@ -1,0 +1,43 @@
+[package]
+name = "zyntax-platform"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Cross-platform hotkeys, selection capture and text injection for ZyntaxAI."
+
+[features]
+# Exposes `Environment::for_test`, so other crates can construct a synthetic
+# session (a Wayland box, a macOS box without permission) on any machine.
+test-util = []
+
+[dependencies]
+zyntax-core.workspace = true
+anyhow.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+ts-rs.workspace = true
+# `wayland-data-control` is what makes the primary selection readable under
+# wlroots and KDE Wayland without synthesising a copy.
+arboard = { version = "3", features = ["wayland-data-control"] }
+
+# Synthetic input. The `x11rb` backend is pure Rust, so a Linux build needs no
+# libxdo-dev present — which is what keeps cross-compilation and CI simple.
+# Windows uses SendInput and macOS CGEvent regardless of this feature.
+enigo = { version = "0.6", default-features = false, features = ["x11rb"] }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+# Wraps AXIsProcessTrusted. Used rather than a hand-rolled extern so this crate
+# can keep `forbid(unsafe_code)`.
+macos-accessibility-client = "0.0.1"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# Portal access for Wayland global shortcuts. The tokio feature is required
+# rather than async-std, because the session is driven from Tauri's runtime.
+ashpd = { version = "0.10", default-features = false, features = ["tokio"] }
+futures-util = { version = "0.3", default-features = false, features = ["std"] }
+
+[dev-dependencies]
+tempfile = "3"

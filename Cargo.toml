@@ -1,0 +1,54 @@
+[workspace]
+members = ["src-tauri", "crates/*"]
+resolver = "2"
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.85"
+license = "GPL-3.0-or-later"
+authors = ["TheHolyOneZ"]
+repository = "https://github.com/TheHolyOneZ/ZyntaxAI"
+
+[workspace.dependencies]
+zyntax-core = { path = "crates/zyntax-core" }
+zyntax-providers = { path = "crates/zyntax-providers" }
+zyntax-platform = { path = "crates/zyntax-platform" }
+zyntax-store = { path = "crates/zyntax-store" }
+
+anyhow = "1"
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time"] }
+tokio-util = "0.7"
+async-trait = "0.1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+time = { version = "0.3", features = [
+  "formatting",
+  "parsing",
+  "macros",
+  "serde",
+  "local-offset",
+] }
+uuid = { version = "1", features = ["v4", "serde"] }
+ts-rs = "10"
+
+[profile.dev]
+# Full debuginfo across this dependency tree (webkit2gtk, gtk, hyper, rustls)
+# costs several gigabytes of build artifacts. Line tables keep panic backtraces
+# pointing at real source locations, which is what we actually use, at a
+# fraction of the size. Switch to `debug = true` if you need a step debugger.
+debug = "line-tables-only"
+
+[profile.dev.package."*"]
+# Dependencies are never stepped through; drop their debuginfo entirely.
+debug = false
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true

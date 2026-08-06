@@ -1,0 +1,63 @@
+[package]
+name = "zyntax"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "ZyntaxAI — AI writing assistant"
+default-run = "zyntax"
+
+[lib]
+name = "zyntax_lib"
+crate-type = ["lib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+zyntax-core.workspace = true
+zyntax-providers.workspace = true
+zyntax-platform.workspace = true
+zyntax-store.workspace = true
+
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+
+tokio-util.workspace = true
+time.workspace = true
+ts-rs.workspace = true
+
+# macos-private-api is what makes the transparent overlay window work on macOS;
+# it is inert on the other platforms but must match tauri.conf.json.
+tauri = { version = "2", features = ["macos-private-api", "tray-icon", "image-png"] }
+tauri-plugin-opener = "2"
+tauri-plugin-global-shortcut = "2"
+tauri-plugin-notification = "2"
+# Registry Run key on Windows, an XDG .desktop entry on Linux, a LaunchAgent on
+# macOS — one API in place of the archived app's Windows-only registry writes.
+tauri-plugin-autostart = "2"
+# A second launch hands its arguments to the running instance instead of
+# starting a rival copy. This is also the escape hatch for Wayland compositors
+# with no shortcuts portal: `zyntax fix` from a native keybinding.
+tauri-plugin-single-instance = "2"
+# In-app updates against a signed manifest we host ourselves — no release
+# server, no accounts, no telemetry. Nothing is applied unless it verifies
+# against the public key baked into tauri.conf.json.
+tauri-plugin-updater = "2"
+tauri-plugin-window-state = "2"
+tracing-appender = "0.2.5"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+# Called directly instead of through tauri-plugin-notification. The plugin's
+# `show()` does `tauri::async_runtime::spawn(async { notification.show() })`,
+# and on Linux that inner call is `notify-rust` → `zbus::block_on`, which
+# builds its own Tokio runtime. Nested inside ours that is an unconditional
+# panic, and because the plugin schedules the work itself no caller can avoid
+# it. See `feedback.rs`.
+notify-rust = { version = "4", default-features = false, features = ["d"] }

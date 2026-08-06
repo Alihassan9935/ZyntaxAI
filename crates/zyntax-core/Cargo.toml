@@ -1,0 +1,17 @@
+[package]
+name = "zyntax-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+description = "Domain model and prompt construction for ZyntaxAI. Pure logic, no I/O."
+
+[dependencies]
+serde.workspace = true
+thiserror.workspace = true
+ts-rs.workspace = true
+similar = "2"
+
+[dev-dependencies]
+insta = { version = "1", features = ["yaml"] }
