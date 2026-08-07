@@ -376,9 +376,6 @@ The variable is `TAURI_SIGNING_PRIVATE_KEY`, not `..._PATH`; the latter is a Tau
 current CLI ignores while still producing a bundle, silently unsigned. The script fails the run if no
 signature ends up beside an artifact.
 
-The full walkthrough, including what `latest.json` is and how the signature check works, is in
-[`zyntaxai/PUBLISHING.md`](zyntaxai/PUBLISHING.md).
-
 </details>
 
 <details>
