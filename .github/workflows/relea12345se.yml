@@ -1,0 +1,106 @@
+name: Release one platform
+
+# Builds a single platform and adds it to the existing v<version> release,
+# for when one job of the full Release workflow failed or never got a runner.
+#
+# darwin-x86_64 is cross-compiled from an Apple silicon runner rather than run
+# on macos-13, because Intel macOS runners are scarce and jobs can sit in the
+# queue indefinitely waiting for one.
+
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Which platform to build"
+        type: choice
+        required: true
+        options:
+          - darwin-x86_64
+          - darwin-aarch64
+          - windows-x86_64
+          - linux-x86_64
+      notes:
+        description: "Release notes (only used if the release does not exist yet)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ inputs.target }}
+    runs-on: ${{ (startsWith(inputs.target, 'darwin') && 'macos-latest') || (startsWith(inputs.target, 'windows') && 'windows-latest') || 'ubuntu-22.04' }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - name: Add the Rust target for a cross build
+        if: inputs.target == 'darwin-x86_64'
+        run: rustup target add x86_64-apple-darwin
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ inputs.target }}
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install Linux build dependencies
+        if: inputs.target == 'linux-x86_64'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev \
+            libxdo-dev patchelf
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build and sign
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        shell: bash
+        run: |
+          if [ "${{ inputs.target }}" = "darwin-x86_64" ]; then
+            pnpm release --target x86_64-apple-darwin --notes "${{ inputs.notes }}"
+          else
+            pnpm release --notes "${{ inputs.notes }}"
+          fi
+
+      - name: Name the manifest after its platform
+        shell: bash
+        run: mv dist/release/latest.json dist/release/latest-${{ inputs.target }}.json
+
+      - name: Add it to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          version=$(node -p "require('./src-tauri/tauri.conf.json').version")
+          tag="v$version"
+
+          mkdir -p out
+          find dist/release -type f -exec cp -n {} out/ \;
+          ls -la out
+
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" out/* --clobber
+          else
+            gh release create "$tag" out/* \
+              --title "ZyntaxAI $version" \
+              --notes "${{ inputs.notes }}" \
+              --draft
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zyntaxai-${{ inputs.target }}
+          path: dist/release/
+          retention-days: 7
+          if-no-files-found: error
