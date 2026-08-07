@@ -43,7 +43,7 @@ const files = inputs.flatMap(collect);
 if (files.length === 0) fail(`nothing found in: ${inputs.join(", ")}`);
 
 const manifests = files
-  .filter((file) => /^latest(-[a-z0-9_]+)?\.json$/i.test(path.basename(file)))
+  .filter((file) => /^latest(-[a-z0-9_.-]+)?\.json$/i.test(path.basename(file)))
   .map((file) => ({ file, data: readJson(file) }))
   .filter((entry) => entry.data && entry.data.version);
 
