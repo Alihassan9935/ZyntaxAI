@@ -9,23 +9,27 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = path.join(ROOT, "dist", "release");
-const BUNDLE = path.join(ROOT, "target", "release", "bundle");
-
 
 const BASE_URL = "https://zsync.eu/zyntaxai/releases";
 
 const args = process.argv.slice(2);
 const notes = valueOf("--notes");
 const skipBuild = args.includes("--skip-build");
+const triple = valueOf("--target");
+
+const BUNDLE = triple
+  ? path.join(ROOT, "target", triple, "release", "bundle")
+  : path.join(ROOT, "target", "release", "bundle");
 
 const version = JSON.parse(
   fs.readFileSync(path.join(ROOT, "src-tauri", "tauri.conf.json"), "utf8"),
 ).version;
 
-
-const ARCH = { x64: "x86_64", arm64: "aarch64" }[process.arch];
+const ARCH = triple
+  ? { x86_64: "x86_64", aarch64: "aarch64" }[triple.split("-")[0]]
+  : { x64: "x86_64", arm64: "aarch64" }[process.arch];
 const OS = { linux: "linux", win32: "windows", darwin: "darwin" }[process.platform];
-if (!ARCH || !OS) fail(`unsupported platform: ${process.platform}/${process.arch}`);
+if (!ARCH || !OS) fail(`unsupported platform: ${triple ?? `${process.platform}/${process.arch}`}`);
 const TARGET = `${OS}-${ARCH}`;
 
 
@@ -50,7 +54,7 @@ if (!skipBuild) {
   const cli = path.join(ROOT, "node_modules", "@tauri-apps", "cli", "tauri.js");
   if (!fs.existsSync(cli)) fail(`the Tauri CLI is missing at ${cli} — run pnpm install first`);
 
-  execFileSync(process.execPath, [cli, "build"], {
+  execFileSync(process.execPath, [cli, "build", ...(triple ? ["--target", triple] : [])], {
     cwd: ROOT,
     stdio: "inherit",
     env: {
