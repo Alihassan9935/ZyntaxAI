@@ -3,7 +3,7 @@ use ts_rs::TS;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum Speed {
     Fast,
 
@@ -15,7 +15,7 @@ pub enum Speed {
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct GenerationParams {
     pub temperature: f32,
     pub max_output_tokens: u32,

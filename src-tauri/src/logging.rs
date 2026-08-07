@@ -11,7 +11,7 @@ const CAPACITY: usize = 2_000;
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct LogLine {
     #[ts(type = "number")]
     pub timestamp: i64,

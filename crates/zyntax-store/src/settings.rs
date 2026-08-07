@@ -35,7 +35,7 @@ pub enum SettingsError {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum Theme {
     #[default]
     System,
@@ -45,7 +45,7 @@ pub enum Theme {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase", default)]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct BehaviorSettings {
     pub input_source: InputSource,
     pub output_mode: OutputMode,
@@ -75,7 +75,7 @@ impl Default for BehaviorSettings {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase", default)]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct SystemSettings {
     pub start_with_os: bool,
 
@@ -110,7 +110,7 @@ pub const SIDEBAR_SECTIONS: [&str; 10] = [
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct SidebarCategory {
     pub id: String,
     pub name: String,
@@ -122,7 +122,7 @@ pub struct SidebarCategory {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase", default)]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct SidebarLayout {
     pub categories: Vec<SidebarCategory>,
 }
@@ -182,7 +182,7 @@ impl SidebarLayout {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase", default)]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct AppearanceSettings {
     pub theme: Theme,
 
@@ -202,7 +202,7 @@ impl Default for AppearanceSettings {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase", default)]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct AppSettings {
     pub schema_version: u32,
 

@@ -11,7 +11,7 @@ use zyntax_store::NewFix;
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct FixError {
     pub code: String,
     pub message: String,

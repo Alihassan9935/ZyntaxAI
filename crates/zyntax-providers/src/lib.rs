@@ -16,7 +16,7 @@ pub use error::{ProviderError, ProviderErrorInfo};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct ModelInfo {
     pub id: String,
 

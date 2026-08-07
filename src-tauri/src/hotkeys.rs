@@ -7,7 +7,7 @@ use zyntax_platform::{Hotkey, HotkeyBackend};
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct HotkeyStatus {
     pub accelerator: String,
 

@@ -3,7 +3,7 @@ use ts_rs::TS;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum DisplayServer {
     Windows,
     MacOs,
@@ -15,7 +15,7 @@ pub enum DisplayServer {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum HotkeyBackend {
     Os,
 
@@ -26,7 +26,7 @@ pub enum HotkeyBackend {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum InjectionBackend {
     Native,
 
@@ -45,7 +45,7 @@ impl InjectionBackend {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum NoteSeverity {
     Info,
 
@@ -54,7 +54,7 @@ pub enum NoteSeverity {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct CapabilityNote {
     pub severity: NoteSeverity,
     pub title: String,
@@ -66,7 +66,7 @@ pub struct CapabilityNote {
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct Capabilities {
     pub display_server: DisplayServer,
 

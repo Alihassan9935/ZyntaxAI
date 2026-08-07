@@ -4,7 +4,7 @@ use ts_rs::TS;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum InputSource {
     #[default]
     Selection,
@@ -14,7 +14,7 @@ pub enum InputSource {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum OutputMode {
     #[default]
     Review,
@@ -39,7 +39,7 @@ impl OutputMode {
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct TokenUsage {
     pub input_tokens: u32,
     pub output_tokens: u32,
@@ -59,7 +59,7 @@ impl TokenUsage {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct FixOutcome {
     pub original: String,
     pub corrected: String,

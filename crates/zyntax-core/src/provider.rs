@@ -3,7 +3,7 @@ use ts_rs::TS;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub enum ProviderId {
     #[default]
     Gemini,
@@ -78,7 +78,7 @@ impl ProviderId {
 
 #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct ModelPricing {
     pub input_per_million: f64,
     pub output_per_million: f64,
@@ -95,7 +95,7 @@ impl Default for ModelPricing {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct ProviderProfile {
     pub id: ProviderId,
 

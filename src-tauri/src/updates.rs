@@ -8,7 +8,7 @@ use ts_rs::TS;
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct UpdateInfo {
     pub version: String,
     pub current_version: String,
@@ -22,7 +22,7 @@ pub struct UpdateInfo {
 
 #[derive(Debug, Clone, Copy, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct UpdateProgress {
     #[ts(type = "number")]
     pub downloaded: u64,

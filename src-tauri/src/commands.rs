@@ -152,7 +152,7 @@ pub fn get_secret_backend(state: State<'_, AppState>) -> SecretBackend {
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct UsagePeriod {
     pub summary: UsageSummary,
 
@@ -163,7 +163,7 @@ pub struct UsagePeriod {
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct ModelUsage {
     pub provider: String,
     pub model: String,
@@ -174,7 +174,7 @@ pub struct ModelUsage {
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct UsageReport {
     pub today: UsagePeriod,
     pub week: UsagePeriod,
@@ -188,7 +188,7 @@ pub struct UsageReport {
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct DailyUsage {
     #[ts(type = "number")]
     pub day: i64,
@@ -385,7 +385,7 @@ pub fn app_version() -> String {
 
 #[derive(Debug, Clone, Serialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct AppPaths {
     pub config: String,
     pub data: String,

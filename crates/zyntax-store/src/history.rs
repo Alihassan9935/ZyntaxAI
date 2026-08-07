@@ -13,7 +13,7 @@ pub enum HistoryError {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct FixRecord {
     #[ts(type = "number")]
     pub id: i64,
@@ -51,7 +51,7 @@ pub struct NewFix {
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct UsageSummary {
     pub fixes: u32,
 
@@ -75,7 +75,7 @@ impl UsageSummary {
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
-#[ts(export, export_to = "../../../apps/desktop/src/lib/bindings/")]
+#[ts(export)]
 pub struct Stats {
     pub total_fixes: u32,
 
